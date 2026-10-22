@@ -1,0 +1,182 @@
+## File 6 — `internal/platform/logging/logger_test.go`
+
+Purpose: Test log-level parsing, environment-specific logger creation, and invalid configuration handling.
+
+```
+
+package logging
+
+import (
+	"testing"
+
+	"github.com/kdxlabs/kdxlabsllm/internal/config"
+	"go.uber.org/zap/zapcore"
+)
+
+func TestParseLevel(t *testing.T) {
+	tests := []struct {
+		name    string
+		input   string
+		want    zapcore.Level
+		wantErr bool
+	}{
+		{
+			name:  "debug",
+			input: "debug",
+			want:  zapcore.DebugLevel,
+		},
+		{
+			name:  "info",
+			input: "info",
+			want:  zapcore.InfoLevel,
+		},
+		{
+			name:  "warn",
+			input: "warn",
+			want:  zapcore.WarnLevel,
+		},
+		{
+			name:  "warning alias",
+			input: "warning",
+			want:  zapcore.WarnLevel,
+		},
+		{
+			name:  "error",
+			input: "error",
+			want:  zapcore.ErrorLevel,
+		},
+		{
+			name:    "invalid level",
+			input:   "trace",
+			wantErr: true,
+		},
+		{
+			name:    "empty level",
+			input:   "",
+			wantErr: true,
+		},
+		{
+			name:  "case insensitive",
+			input: "INFO",
+			want:  zapcore.InfoLevel,
+		},
+		{
+			name:  "whitespace trimmed",
+			input: " debug ",
+			want:  zapcore.DebugLevel,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := parseLevel(tt.input)
+
+			if tt.wantErr {
+				if err == nil {
+					t.Fatal("expected an error, got nil")
+				}
+				return
+			}
+
+			if err != nil {
+				t.Fatalf("parseLevel() error = %v", err)
+			}
+
+			if got != tt.want {
+				t.Errorf("parseLevel() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNewLogger(t *testing.T) {
+	tests := []struct {
+		name        string
+		environment string
+		level       string
+		wantErr     bool
+	}{
+		{
+			name:        "development logger",
+			environment: "development",
+			level:       "debug",
+		},
+		{
+			name:        "test logger",
+			environment: "test",
+			level:       "info",
+		},
+		{
+			name:        "production logger",
+			environment: "production",
+			level:       "info",
+		},
+		{
+			name:        "staging logger",
+			environment: "staging",
+			level:       "warn",
+		},
+		{
+			name:        "invalid environment",
+			environment: "unknown",
+			level:       "info",
+			wantErr:     true,
+		},
+		{
+			name:        "invalid level",
+			environment: "production",
+			level:       "trace",
+			wantErr:     true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			logger, err := New(
+				config.LoggingConfig{Level: tt.level},
+				tt.environment,
+			)
+
+			if tt.wantErr {
+				if err == nil {
+					if logger != nil {
+						_ = logger.Sync()
+					}
+					t.Fatal("expected logger creation to fail")
+				}
+				return
+			}
+
+			if err != nil {
+				t.Fatalf("New() error = %v", err)
+			}
+
+			if logger == nil {
+				t.Fatal("New() returned a nil logger")
+			}
+
+			logger.Info("logger test")
+			if err := logger.Sync(); err != nil {
+				t.Errorf("logger Sync() error = %v", err)
+			}
+		})
+	}
+}
+
+```
+
+### File path
+
+```
+internal/platform/logging/logger_test.go
+```
+
+### Validate
+
+```
+gofmt -w internal/platform/logging/logger_test.go
+go test -race ./internal/platform/logging
+go vet ./internal/platform/logging
+```
+
+Type `n` to proceed to File 7.
