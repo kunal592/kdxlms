@@ -4,6 +4,8 @@ An enterprise-grade, high-performance backend architecture for an online technol
 
 Built as a **modular monolith** in Go with PostgreSQL, Redis, and asynchronous workers, designed for high concurrency, payment idempotency, secure video streaming, mentor doubt-resolution workflows, and automated course-completion refund systems.
 
+**Developer:** [KDXLabs](https://www.kdxlabs.cloud) · [www.kdxlabs.cloud](https://www.kdxlabs.cloud)
+
 ---
 
 ## Table of Contents
@@ -35,6 +37,7 @@ Built as a **modular monolith** in Go with PostgreSQL, Redis, and asynchronous w
 - [8. Project Layout](#8-project-layout)
 - [9. Getting Started](#9-getting-started)
 - [10. Architecture Knowledge Graph](#10-architecture-knowledge-graph)
+- [11. Developer & Maintainer](#11-developer--maintainer)
 
 ---
 
@@ -535,3 +538,13 @@ This repository is indexed into a persistent GraphRAG knowledge graph using **Gr
   ```
 - **Interactive Visualizer**:
   Open `graphify-out/graph.html` in your browser to inspect community clustering, god nodes, and inter-service call graphs.
+
+---
+
+## 11. Developer & Maintainer
+
+**Developed and engineered by [KDXLabs](https://www.kdxlabs.cloud)**
+- **Website**: [www.kdxlabs.cloud](https://www.kdxlabs.cloud)
+- **Organization**: KDXLabs Engineering & AI Backend Architecture
+- **Inquiries**: [contact@kdxlabs.cloud](mailto:contact@kdxlabs.cloud) or visit [www.kdxlabs.cloud](https://www.kdxlabs.cloud)
+
