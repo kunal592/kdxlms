@@ -1,0 +1,125 @@
+# ==============================================================================
+# Git Ignore Configuration for KDXLabsLLM Platform
+# (Go 1.23+ / PostgreSQL / Redis / Docker / Modular Monolith Architecture)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Binaries and Build Artifacts
+# ------------------------------------------------------------------------------
+/bin/
+/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+kdxlabsllm
+kdxlabsllm-api
+kdxlabsllm-worker
+
+# Go Workspace and Build Cache
+go.work
+go.work.sum
+/vendor/
+
+# Test & Coverage Outputs
+coverage.out
+coverage.txt
+coverage.html
+profile.out
+*.prof
+*.pprof
+
+# ------------------------------------------------------------------------------
+# Environment Variables & Secrets
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+id_rsa*
+secrets/
+
+# ------------------------------------------------------------------------------
+# Local Infrastructure & Persistent Data
+# ------------------------------------------------------------------------------
+postgres_data/
+redis_data/
+minio_data/
+local_data/
+uploads/
+media/
+storage/
+
+# Docker overrides & local state
+docker-compose.override.yml
+*.dump
+*.sql.gz
+
+# ------------------------------------------------------------------------------
+# Operating System Files
+# ------------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# ------------------------------------------------------------------------------
+# IDEs and Editors
+# ------------------------------------------------------------------------------
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (GoLand, IntelliJ)
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Vim / Emacs / Sublime
+*.swp
+*.swo
+*.swn
+*~
+\#*\#
+.#*
+
+# ------------------------------------------------------------------------------
+# Logs & Temporary Files
+# ------------------------------------------------------------------------------
+logs/
+*.log
+tmp/
+temp/
+scratch/
+
+# ------------------------------------------------------------------------------
+# Knowledge Graph & Assistant Artifacts
+# ------------------------------------------------------------------------------
+graphify-out/
+.graphify_*
+!.agents/
